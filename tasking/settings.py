@@ -38,7 +38,10 @@ SECRET_KEY = os.environ['SECRET_KEY']
 DEBUG = True
 
 ALLOWED_HOSTS = ['localhost',
-                 '8000-gassama94-taskkick-y4ykyn8d7wt.ws-eu105.gitpod.io']
+                 '*.gitpod.io',
+                 '8000-gassama94-taskkick-y4ykyn8d7wt.ws-eu105.gitpod.io',
+                 '8000-gassama94-taskkick-fg2kxqfdgzi.ws-eu105.gitpod.io'
+                 ]
 
 
 # Application definition
@@ -53,6 +56,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cloudinary',
     'mytask',
+    'corsheaders',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -63,6 +68,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'tasking.urls'
@@ -115,6 +122,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Whitelisting React port so the frontend can interact with the api
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:8000',
+    'http://*.gitpod.io']
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
