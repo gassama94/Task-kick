@@ -3,37 +3,9 @@ import React, {
 } from 'react'
 import './App.css';
 import Modal from './components/Modal';
+import axios from 'axios';
 
 
-const tasks = [
-  {
-    id: 1, 
-    title: "Call Clients",
-    description: "Call clients for overdue invoices.", 
-    completed: true
-  },
-  {
-    id: 2, 
-    title:"Dunning",
-    description: "Sending dunning letters to clients for uncollected cash.",
-    completed: false
-  },
-  {
-    id: 3,
-    title: "Order Release",
-    description: "Check out customers accounts and release on block orders accordingly.", 
-    completed: true 
-  },
-  {
-    id:4,
-    title:"Weekly Reports",
-    description: "Sending the weekly reports for overdue invoices,", 
-    completed: false
-  },
-  
-  ];
-  
-  
 
 
 class App extends Component {
@@ -47,11 +19,21 @@ class App extends Component {
         description: "",
         completed: false
       },
-      taskList: tasks,
+      todoList: []
 
     };
   }
 
+  componentDidMount() {
+    this.refreshList();
+  }
+
+  refreshList = () => {
+    axios
+    .get("https://gassama94-taskkick-48n99of1uyl.ws-eu105.gitpod.io/api/tasks", "https://localhost:8000/api/tasks/")
+    .then(res => this.state({ todoList: res.data}))
+    .catch( err => console.log(err))
+  }
 
   //create toggle property
   toggle = () => {
@@ -59,10 +41,21 @@ class App extends Component {
   }
   handleSubmit = item => {
     this.toggle();
-    alert('Saved!' + JSON.stringify(item));
+    if (item.id) {
+      axios
+      .put(`https://gassama94-taskkick-48n99of1uyl.ws-eu105.gitpod.io/api/tasks/${item.id}/`,item)
+      .then(res => this.refreshList())
+      
+    }
+    axios
+    .put("https://gassama94-taskkick-48n99of1uyl.ws-eu105.gitpod.io/api/tasks", "https://localhost:8000/api/tasks/", item)
+    .then(res => this.refreshList())
   }
   handleDelete = item => {
-    alert('Deleted!' + JSON.stringify(item));
+    axios
+    .delete(`https://gassama94-taskkick-48n99of1uyl.ws-eu105.gitpod.io/api/tasks/${item.id}/`)
+    .then(res => this.refreshList())
+    
   }
 
   createItem = () => {
@@ -111,7 +104,7 @@ class App extends Component {
 //Rendering items 
     renderItems = () => {
       const{viewCompleted} = this.state;
-      const newItems = this.state.taskList.filter(
+      const newItems = this.state.todoList.filter(
         item => item.completed === viewCompleted
       );
       

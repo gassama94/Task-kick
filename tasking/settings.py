@@ -38,9 +38,10 @@ SECRET_KEY = os.environ['SECRET_KEY']
 DEBUG = True
 
 ALLOWED_HOSTS = ['localhost',
+                 '8000-gassama94-taskkick-48n99of1uyl.ws-eu105.gitpod.io',
                  '*.gitpod.io',
                  '8000-gassama94-taskkick-y4ykyn8d7wt.ws-eu105.gitpod.io',
-                 '8000-gassama94-taskkick-fg2kxqfdgzi.ws-eu105.gitpod.io'
+                 '8000-gassama94-taskkick-fg2kxqfdgzi.ws-eu105.gitpod.io',
                  ]
 
 
@@ -125,7 +126,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Whitelisting React port so the frontend can interact with the api
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:8000',
-    'http://*.gitpod.io']
+    'http://*.gitpod.io',
+    'https://8080-gassama94-taskkick-48n99of1uyl.ws-eu105.gitpod.io'
+    ]
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
