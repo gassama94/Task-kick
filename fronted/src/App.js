@@ -2,7 +2,7 @@ import React, {
   Component
 } from 'react'
 import './App.css';
-import CustomModal from './components/Modal';
+import Modal from './components/Modal';
 
 
 const tasks = [
@@ -40,11 +40,42 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      modal:false,
       viewCompleted: false,
+      activeItem: {
+        title: "",
+        description: "",
+        completed: false
+      },
       taskList: tasks,
 
     };
   }
+
+
+  //create toggle property
+  toggle = () => {
+    this.setState({modal: !this.state.modal});
+  }
+  handleSubmit = item => {
+    this.toggle();
+    alert('Saved!' + JSON.stringify(item));
+  }
+  handleDelete = item => {
+    alert('Deleted!' + JSON.stringify(item));
+  }
+
+  createItem = () => {
+    const item = { title: "", modal: !this.state.modal };
+    this.setState({ activeItem: item, modal: !this.state.modal });
+  }
+
+  editItem = item => {
+    this.setState({ activeItem: item, modal: !this.state.modal });
+  }
+  
+
+
 
   displayCompleted = status => {
     if (status) {
@@ -97,17 +128,17 @@ class App extends Component {
           <button className='btn btn-info mr-2'>Edit</button>
           <button className='btn btn-danger mr-2'>Delete</button>
         </li>
-      ))
+      ));
     }
 render() {
   return (
-    <main className='context'>
+    <main className='content p-3 mb-2 bg-info'>
       <h1 className='text-black text-uppercase text-center my-4'> Task Manager</h1>
       <div className='row'>
         <div className='col-md-6 col-sma-10 mx-auto p-0'>
           <div className='card p-3'>
             <div >
-              <button className='btn btn-primary'>
+              <button className='btn btn-primary'  onClick={this.createItem}>
               Add Task
               </button>
             </div>
@@ -118,6 +149,14 @@ render() {
           </div>
         </div>
       </div>
+      <footer className='my-5 mb-2 bg-info text-center'>
+        Copyright 2023 &copy; All rights Reserved
+        </footer>
+
+      {this.state.modal ? (
+        <Modal activeItem={this.state.activeItem} toggle={this.toggle} onSave={this.handleSubmit}></Modal>
+      ) : null
+       }
 
 
 
