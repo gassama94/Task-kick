@@ -39,7 +39,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 DEBUG = True
 
 ALLOWED_HOSTS = ['localhost',
-                 'https://task-kick-38abae8640db.herokuapp.com',
+                 'https://task-man-28298db3affd.herokuapp.com',
                  ]
 
 
@@ -142,8 +142,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Whitelisting React port so the frontend can interact with the api
 CORS_ORIGIN_WHITELIST = [
-    'https://task-kick-38abae8640db.herokuapp.com',
-    'http://localhost:8000',
+    'https://task-man-28298db3affd.herokuapp.com',
+    'http://localhost:8080',
     ]
 
 # Internationalization

@@ -30,7 +30,7 @@ class App extends Component {
 
   refreshList = () => {
     axios
-      .get("https://localhost:8000/api/tasks/")
+      .get("http://localhost:8000/api/tasks/")
       .then(res => {
         const updatedTasks = res.data.map(task => {
           const isOverdue = new Date(task.due_date) < new Date();
@@ -53,24 +53,32 @@ class App extends Component {
       modal: !this.state.modal
     });
   }
+
   handleSubmit = item => {
     this.toggle();
-    if (item.id) {
-      axios
-        .put(`https://localhost:8000/api/tasks/${item.id}/`, item)
-        .then(res => this.refreshList())
 
+    if (item.id) {
+      // Update existing item
+      axios
+        .put(`http://localhost:8000/api/task/${item.id}/`, item)
+        .then(res => this.refreshList())
+        .catch(err => console.error("Update Error:", err));
+    } else {
+      // Create new item
+      axios
+        .post("http://localhost:8000/api/task/", item)
+        .then(res => this.refreshList())
+        .catch(err => console.error("Create Error:", err));
     }
-    axios
-      .put("https://localhost:8000/api/tasks/", item)
-      .then(res => this.refreshList())
   }
+
   handleDelete = item => {
     axios
-      .delete(`https://localhost:8000/api/tasks/${item.id}/`)
+      .delete(`http://localhost:8000/api/task/${item.id}/`)
       .then(res => this.refreshList())
-
+      .catch(err => console.error("Delete Error:", err));
   }
+
 
   createItem = () => {
     const item = {
