@@ -2,6 +2,7 @@ import React, {
   Component
 } from 'react'
 import './App.css';
+import CustomModal from './components/Modal';
 
 
 const tasks = [
