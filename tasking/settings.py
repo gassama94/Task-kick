@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
 
 if os.path.exists('env.py'):
     import env
@@ -35,13 +36,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#DEBUG = True
+ DEBUG = 'DEV' in os.environ
 
 ALLOWED_HOSTS = ['localhost',
+                 'https://task-kick-38abae8640db.herokuapp.com',
                  '8000-gassama94-taskkick-48n99of1uyl.ws-eu105.gitpod.io',
                  '*.gitpod.io',
-                 '8000-gassama94-taskkick-y4ykyn8d7wt.ws-eu105.gitpod.io',
-                 '8000-gassama94-taskkick-fg2kxqfdgzi.ws-eu105.gitpod.io',
+                 
                  ]
 
 
@@ -57,6 +59,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cloudinary',
     'mytask',
+    'dj_rest_auth.registration',
     'corsheaders',
     'rest_framework',
 ]
@@ -72,6 +75,22 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
 ]
+
+if 'CLIENT_ORIGIN' in os.environ:
+     CORS_ALLOWED_ORIGINS = [
+         os.environ.get('CLIENT_ORIGIN')
+     ]
+ else:
+     CORS_ALLOWED_ORIGIN_REGEXES = [
+         r"^https://.*\.gitpod\.io$",
+     ]
+
+ CORS_ALLOW_CREDENTIALS = True
+
+JWT_AUTH_COOKIE = 'my-app-auth'
+ JWT_AUTH_REFRESH_COOKE = 'my-refresh-token'
+ JWT_AUTH_SAMESITE = 'None'
+
 
 ROOT_URLCONF = 'tasking.urls'
 
@@ -97,12 +116,18 @@ WSGI_APPLICATION = 'tasking.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if 'DEV' in os.environ:
+    DATABASES = {
+       'default': {
+           'ENGINE': 'django.db.backends.sqlite3',
+           'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else:
+     DATABASES = {
+         'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+     }
+
 
 
 # Password validation
@@ -125,6 +150,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Whitelisting React port so the frontend can interact with the api
 CORS_ORIGIN_WHITELIST = [
+    'https://task-kick-38abae8640db.herokuapp.com'
     'http://localhost:8000',
     'http://*.gitpod.io',
     'https://8080-gassama94-taskkick-48n99of1uyl.ws-eu105.gitpod.io'

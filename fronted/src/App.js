@@ -31,7 +31,14 @@ class App extends Component {
   refreshList = () => {
     axios
     .get("https://gassama94-taskkick-48n99of1uyl.ws-eu105.gitpod.io/api/tasks", "https://localhost:8000/api/tasks/")
-    .then(res => this.state({ todoList: res.data}))
+    .then(res => {
+      const updatedTasks = res.data.map(task => {
+        const isOverdue = new Date(task.due_date) < new Date();
+        return { ...task, isOverdue };
+      });
+      this.setState({ todoList: updatedTasks });
+    })
+      //this.state({ todoList: res.data}))
     .catch( err => console.log(err))
   }
 
@@ -118,6 +125,9 @@ class App extends Component {
           title={item.title}>
             {item.title}
           </span>
+          <span className='due-date mr-2'>
+          Due: {item.due_date}
+        </span>
           <button className='btn btn-info mr-2'>Edit</button>
           <button className='btn btn-danger mr-2'>Delete</button>
         </li>

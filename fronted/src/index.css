@@ -27,3 +27,14 @@ cursor: pointer;
   color: #fff;
   
 }
+
+
+.overdue-task {
+  color: red;
+  font-weight: bold;
+}
+
+.due-date {
+  font-size: 0.9em;
+  color: #555;
+}

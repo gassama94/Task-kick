@@ -77,6 +77,17 @@ class CustomModal extends Component {
                 Completed
               </Label>
             </FormGroup>
+
+            {/* Due Date Field */}
+            <FormGroup>
+              <Label for="due_date">Due Date</Label>
+              <Input
+                type="date"
+                name="due_date"
+                value={this.state.activeItem.due_date || ''}
+                onChange={this.handleChange}
+              />
+            </FormGroup>
           </Form>
         </ModalBody>
         {/* create a modal footer */}
