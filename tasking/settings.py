@@ -36,8 +36,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = True
- DEBUG = 'DEV' in os.environ
+DEBUG = 'DEV' in os.environ
 
 ALLOWED_HOSTS = ['localhost',
                  'https://task-kick-38abae8640db.herokuapp.com',
@@ -80,16 +79,16 @@ if 'CLIENT_ORIGIN' in os.environ:
      CORS_ALLOWED_ORIGINS = [
          os.environ.get('CLIENT_ORIGIN')
      ]
- else:
+else:
      CORS_ALLOWED_ORIGIN_REGEXES = [
          r"^https://.*\.gitpod\.io$",
      ]
 
- CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_CREDENTIALS = True
 
 JWT_AUTH_COOKIE = 'my-app-auth'
- JWT_AUTH_REFRESH_COOKE = 'my-refresh-token'
- JWT_AUTH_SAMESITE = 'None'
+JWT_AUTH_REFRESH_COOKE = 'my-refresh-token'
+JWT_AUTH_SAMESITE = 'None'
 
 
 ROOT_URLCONF = 'tasking.urls'
@@ -150,10 +149,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Whitelisting React port so the frontend can interact with the api
 CORS_ORIGIN_WHITELIST = [
-    'https://task-kick-38abae8640db.herokuapp.com'
+    'https://task-kick-38abae8640db.herokuapp.com',
     'http://localhost:8000',
-    'http://*.gitpod.io',
-    'https://8080-gassama94-taskkick-48n99of1uyl.ws-eu105.gitpod.io'
     ]
 
 # Internationalization
