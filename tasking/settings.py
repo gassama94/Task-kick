@@ -40,9 +40,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['localhost',
                  'https://task-kick-38abae8640db.herokuapp.com',
-                 '8000-gassama94-taskkick-48n99of1uyl.ws-eu105.gitpod.io',
-                 '*.gitpod.io',
-                 
                  ]
 
 
@@ -85,10 +82,6 @@ else:
      ]
 
 CORS_ALLOW_CREDENTIALS = True
-
-JWT_AUTH_COOKIE = 'my-app-auth'
-JWT_AUTH_REFRESH_COOKE = 'my-refresh-token'
-JWT_AUTH_SAMESITE = 'None'
 
 
 ROOT_URLCONF = 'tasking.urls'

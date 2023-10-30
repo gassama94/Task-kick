@@ -30,7 +30,7 @@ class App extends Component {
 
   refreshList = () => {
     axios
-      .get("https://gassama94-taskkick-48n99of1uyl.ws-eu105.gitpod.io/api/tasks", "https://localhost:8000/api/tasks/")
+      .get("https://localhost:8000/api/tasks/")
       .then(res => {
         const updatedTasks = res.data.map(task => {
           const isOverdue = new Date(task.due_date) < new Date();
@@ -57,17 +57,17 @@ class App extends Component {
     this.toggle();
     if (item.id) {
       axios
-        .put(`https://gassama94-taskkick-48n99of1uyl.ws-eu105.gitpod.io/api/tasks/${item.id}/`, item)
+        .put(`https://localhost:8000/api/tasks/${item.id}/`, item)
         .then(res => this.refreshList())
 
     }
     axios
-      .put("https://gassama94-taskkick-48n99of1uyl.ws-eu105.gitpod.io/api/tasks", "https://localhost:8000/api/tasks/", item)
+      .put("https://localhost:8000/api/tasks/", item)
       .then(res => this.refreshList())
   }
   handleDelete = item => {
     axios
-      .delete(`https://gassama94-taskkick-48n99of1uyl.ws-eu105.gitpod.io/api/tasks/${item.id}/`)
+      .delete(`https://localhost:8000/api/tasks/${item.id}/`)
       .then(res => this.refreshList())
 
   }
@@ -126,8 +126,8 @@ class App extends Component {
         this.state.viewCompleted ? "active" : ""
       } >
       Incompleted <
-      /span>   <
-      /div>
+      /span>   < /
+      div >
     );
   }
 
@@ -162,14 +162,19 @@ class App extends Component {
         item.due_date
       } <
       /span> <
-      button className = 'btn btn-info mr-2' > Edit < /button> <
-      button className = 'btn btn-danger mr-2' > Delete < /button> <
-      /li>
+      button className = 'btn btn-info mr-2'
+      onClick = {
+        () => this.editItem(item)
+      } > Edit < /button> <
+      button className = 'btn btn-danger mr-2'
+      onClick = {
+        () => this.handleDelete(item)
+      } > Delete < /button> < /
+      li >
     ));
   }
   render() {
-    return ( <
-      main className = 'content p-3 mb-2 bg-info' >
+    return ( < main className = 'content p-3 mb-2 bg-info' >
       <
       h1 className = 'text-black text-uppercase text-center my-4' > Task Manager < /h1> <
       div className = 'row' >
@@ -185,17 +190,17 @@ class App extends Component {
         this.createItem
       } >
       Add Task <
-      /button> <
-      /div> {
+      /button> < /
+      div > {
         this.renderTabList()
       } <
       ul className = 'list-group list-group-flush' > {
         this.renderItems()
       } <
-      /ul> <
-      /div> <
-      /div> <
-      /div> <
+      /ul> < /
+      div > <
+      /div> < /
+      div > <
       footer className = 'my-5 mb-2 bg-info text-center' >
       Copyright 2023 & copy; All rights Reserved <
       /footer>
