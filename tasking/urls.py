@@ -20,6 +20,8 @@ from rest_framework import routers
 
 router = routers.DefaultRouter()
 router.register(r'task', views.MytaskView, 'task')
+router.register(r'profiles', views.ProfileView, 'profile')  # Assuming you have a ProfileView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),

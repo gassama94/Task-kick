@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import cloudinary
 import os
 import dj_database_url
 
@@ -23,7 +24,7 @@ CLOUDINARY_STORAGE = {
 }
 
 MEDIA_URL = '/media/'
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.MediaCloudinaryStorage'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -40,6 +41,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['localhost',
                  'https://task-man-28298db3affd.herokuapp.com',
+                 '8000-gassama94-taskkick-zt3mew4811a.ws-eu105.gitpod.io',
+                 '127.0.0.1:8000',
+                 '127.0.0.1',
                  ]
 
 
