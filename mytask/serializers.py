@@ -9,8 +9,9 @@ class MytaskSerializer(serializers.ModelSerializer):
     fields = '__all__'
 
 class ProfileSerializer(serializers.ModelSerializer):
-    class Meta:
+  owner = serializers.ReadOnlyField(source='owner.username')
+
+  class Meta:
         model = Profile
-        fields = ['id', 'owner', 'created_at', 'updated_at', 'name', 'content', 'image', 'birth_date']
-        # If you want to include all fields, you can use:
-        # fields = '__all__'
+        fields = ['id', 'owner', 'created_at', 'updated_at', 'name', 'content',  'image']
+        

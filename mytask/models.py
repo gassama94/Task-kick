@@ -16,8 +16,10 @@ class Mytask(models.Model):
 class Profile(models.Model):
     # Additional fields for the profile
     owner = models.OneToOneField(User, on_delete=models.CASCADE, related_name='mytask_profile')
+    name = models.CharField(max_length=255, default='Default Name')  # Add this line for the name field
+    content = models.TextField(blank=True, default="")
     created_at = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
+    updated_at = models.DateTimeField(auto_now=True)
     image = models.ImageField(
         upload_to='images/', default='../default_profile_fvwztb'
     )
@@ -36,4 +38,4 @@ def create_Profile(sender, instance, created, **kwargs):
         Profile.objects.create(owner=instance)
 
 
-post_save.connect(create_Profile, sender=User)
+#post_save.connect(create_Profile, sender=User)

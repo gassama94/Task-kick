@@ -6,7 +6,7 @@ class MytaskAdmin(admin.ModelAdmin):
     list_display = ('title', 'description', 'completed')
 
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('owner', 'created_at', 'updated', 'image')
+    list_display = ('owner', 'created_at', 'updated_at', 'image')
 
 # Register Admin
 admin.site.register(Mytask, MytaskAdmin)

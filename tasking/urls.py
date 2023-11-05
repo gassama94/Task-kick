@@ -27,5 +27,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('profiles/', include(router.urls)),
+    path('profiles/<int:pk>', views.ProfileDetail.as_view()),
 
 ]
