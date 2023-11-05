@@ -26,6 +26,7 @@ router.register(r'profiles', views.ProfileView, 'profile')  # Assuming you have 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls')),
     path('profiles/', include(router.urls)),
     path('profiles/<int:pk>', views.ProfileDetail.as_view()),
 
