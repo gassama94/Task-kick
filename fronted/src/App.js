@@ -17,6 +17,7 @@ class App extends Component {
       todoList: [],
       showProductivity: false,
     }
+    this.toggleProductivity = this.toggleProductivity.bind(this)
   }
 
   componentDidMount() {
@@ -121,6 +122,12 @@ class App extends Component {
     return totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0
   }
 
+  toggleProductivity = () => {
+    this.setState((prevState) => ({
+      showProductivity: !prevState.showProductivity,
+    }))
+  }
+
   renderTabList = () => {
     return (
       <div className="my-5 tab-list">
@@ -153,7 +160,8 @@ class App extends Component {
       >
         <span
           className={`mytask-title mr-2 ${
-            this.state.viewCompleted ? 'completed-task' : ''
+            // this.state.viewCompleted ? 'completed-task' : ''
+            item.completed ? 'completed-task' : ''
           }`}
           title={item.title}
         >
@@ -217,7 +225,7 @@ class App extends Component {
               )}
 
               {this.renderTabList()}
-              <ul className="list-group list-group-flush border-success">
+              <ul className="list-group list-group-flush border-top-0">
                 {this.renderItems()}
               </ul>
             </div>
