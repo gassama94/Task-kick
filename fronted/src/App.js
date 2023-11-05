@@ -26,8 +26,9 @@ class App extends Component {
 
   refreshList = () => {
     axios
-      .get('http://localhost:8000/api/tasks/')
+      .get('http://localhost:8000/profiles/tasks/')
       .then((res) => {
+        console.log('Tasks fetched:', res.data)
         const updatedTasks = res.data.map((task) => {
           const isOverdue = new Date(task.due_date) < new Date()
           return {
@@ -52,12 +53,14 @@ class App extends Component {
     this.toggle()
     if (item.id) {
       axios
-        .put(`http://localhost:8000/api/task/${item.id}/`, item)
+        // .put(`http://localhost:8000/api/task/${item.id}/`, item)
+        .put(`http://localhost:8000/profiles/task/${item.id}/`, item)
         .then((res) => this.refreshList())
         .catch((err) => console.error('Update Error:', err))
     } else {
       axios
-        .post('http://localhost:8000/api/task/', item)
+        // .post('http://localhost:8000/api/task/', item)
+        .post('http://localhost:8000/profiles/task/', item)
         .then((res) => this.refreshList())
         .catch((err) => console.error('Create Error:', err))
     }
@@ -65,7 +68,8 @@ class App extends Component {
 
   handleDelete = (item) => {
     axios
-      .delete(`http://localhost:8000/api/task/${item.id}/`)
+      // .delete(`http://localhost:8000/api/task/${item.id}/`)
+      .delete(`http://localhost:8000/profiles/task/${item.id}/`)
       .then((res) => this.refreshList())
       .catch((err) => console.error('Delete Error:', err))
   }
@@ -152,6 +156,8 @@ class App extends Component {
     const newItems = this.state.todoList.filter(
       (item) => item.completed === viewCompleted
     )
+
+    console.log('Filtered items:', newItems)
 
     return newItems.map((item) => (
       <li
