@@ -26,5 +26,6 @@ router.register(r'profiles', views.ProfileView, 'profile')  # Assuming you have 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
+    path('profiles/', include(router.urls)),
 
 ]

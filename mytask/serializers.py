@@ -11,6 +11,6 @@ class MytaskSerializer(serializers.ModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ['user', 'bio', 'location', 'birth_date']
+        fields = ['id', 'owner', 'created_at', 'updated_at', 'name', 'content', 'image', 'birth_date']
         # If you want to include all fields, you can use:
         # fields = '__all__'
