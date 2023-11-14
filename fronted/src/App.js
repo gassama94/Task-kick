@@ -1,6 +1,9 @@
-import React, { Component } from 'react'
+import React, {
+  Component
+} from 'react'
 import './App.css'
 import Modal from './components/Modal'
+import 'bootstrap/dist/css/bootstrap.min.css'
 import axios from 'axios'
 
 class App extends Component {
@@ -133,121 +136,170 @@ class App extends Component {
   }
 
   renderTabList = () => {
-    return (
-      <div className="my-5 tab-list">
-        <span
-          onClick={() => this.displayCompleted(true)}
-          className={this.state.viewCompleted ? 'active' : ''}
-        >
-          Completed{' '}
-        </span>
-        <span
-          onClick={() => this.displayCompleted(false)}
-          className={!this.state.viewCompleted ? 'active' : ''}
-        >
-          Incomplete{' '}
-        </span>{' '}
-      </div>
+    return ( <
+      div className = "my-5 tab-list" >
+      <
+      span onClick = {
+        () => this.displayCompleted(true)
+      }
+      className = {
+        this.state.viewCompleted ? 'active' : ''
+      } >
+      Completed {
+        ' '
+      } <
+      /span> <
+      span onClick = {
+        () => this.displayCompleted(false)
+      }
+      className = {
+        !this.state.viewCompleted ? 'active' : ''
+      } >
+      Incomplete {
+        ' '
+      } <
+      /span>{' '} <
+      /div>
     )
   }
 
   renderItems = () => {
-    const { viewCompleted } = this.state
+    const {
+      viewCompleted
+    } = this.state
     const newItems = this.state.todoList.filter(
       (item) => item.completed === viewCompleted
     )
 
     console.log('Filtered items:', newItems)
 
-    return newItems.map((item) => (
-      <li
-        className="list-group-item d-flex justify-content-between align-items-center"
-        key={item.id}
-      >
-        <span
-          className={`mytask-title mr-2 ${
+    return newItems.map((item) => ( <
+      li className = "list-group-item d-flex justify-content-between align-items-center"
+      key = {
+        item.id
+      } >
+      <
+      span className = {
+        `mytask-title mr-2 ${
             // this.state.viewCompleted ? 'completed-task' : ''
             item.completed ? 'completed-task' : ''
-          }`}
-          title={item.title}
-        >
-          {' '}
-          {item.title}{' '}
-        </span>{' '}
-        <span className="due-date mr-2">Due: {item.due_date} </span>{' '}
-        <button
-          className="btn btn-info mr-2"
-          onClick={() => this.editItem(item)}
-        >
-          Edit{' '}
-        </button>{' '}
-        <button
-          className="btn btn-danger"
-          onClick={() => this.handleDelete(item)}
-        >
-          Delete{' '}
-        </button>{' '}
-      </li>
+          }`
+      }
+      title = {
+        item.title
+      } >
+      {
+        ' '
+      } {
+        item.title
+      } {
+        ' '
+      } <
+      /span>{' '} <
+      span className = "due-date mr-2" > Due: {
+        item.due_date
+      } < /span>{' '} <
+      button className = "btn btn-info mr-2"
+      onClick = {
+        () => this.editItem(item)
+      } >
+      Edit {
+        ' '
+      } <
+      /button>{' '} <
+      button className = "btn btn-danger"
+      onClick = {
+        () => this.handleDelete(item)
+      } >
+      Delete {
+        ' '
+      } <
+      /button>{' '} <
+      /li>
     ))
   }
 
   render() {
-    return (
-      <main className="content p-3 mb-2 bg-info">
-        <h1 className="text-black text-uppercase text-center my-4">
-          Task Manager
-        </h1>
-        <div className="row">
-          <div className="col-md-6 col-sma-10 mx-auto p-0">
-            <div className="card p-3">
-              <div>
-                <button
-                  className="btn btn-primary mb-4"
-                  onClick={this.createItem}
-                >
-                  Add Task
-                </button>
-              </div>
+    return ( <
+      main className = "content p-3 mb-2 bg-info" >
+      <
+      h1 className = "text-black text-uppercase text-center my-4" >
+      Task Manager <
+      /h1> <
+      div className = "row" >
+      <
+      div className = "col-md-6 col-sma-10 mx-auto p-0" >
+      <
+      div className = "card p-3" >
+      <
+      div >
+      <
+      button className = "btn btn-primary mb-4"
+      onClick = {
+        this.createItem
+      } >
+      Add Task <
+      /button> <
+      /div>
 
-              {/* Button to toggle productivity display */}
-              <div>
-                <button
-                  className="btn btn-secondary"
-                  onClick={this.toggleProductivity}
-                >
-                  {this.state.showProductivity
-                    ? 'Hide Productivity'
-                    : 'Show Productivity'}
-                </button>
-              </div>
+      {
+        /* Button to toggle productivity display */ } <
+      div >
+      <
+      button className = "btn btn-secondary"
+      onClick = {
+        this.toggleProductivity
+      } >
+      {
+        this.state.showProductivity ?
+        'Hide Productivity' :
+          'Show Productivity'
+      } <
+      /button> <
+      /div>
 
-              {/* Conditional rendering of productivity display */}
-              {this.state.showProductivity && (
-                <div className="productivity-display">
-                  <h2>
-                    Productivity: {this.calculateProductivity().toFixed(2)}%
-                  </h2>
-                </div>
-              )}
+      {
+        /* Conditional rendering of productivity display */ } {
+        this.state.showProductivity && ( <
+          div className = "productivity-display" >
+          <
+          h2 >
+          Productivity: {
+            this.calculateProductivity().toFixed(2)
+          } %
+          <
+          /h2> <
+          /div>
+        )
+      }
 
-              {this.renderTabList()}
-              <ul className="list-group list-group-flush border-top-0">
-                {this.renderItems()}
-              </ul>
-            </div>
-          </div>
-        </div>
-        <footer className="my-5 mb-2 bg-info text-center">
-          Copyright 2023© All rights Reserved
-        </footer>
-        {this.state.modal ? (
-          <Modal
-            activeItem={this.state.activeItem}
-            toggle={this.toggle}
-            onSave={this.handleSubmit}
+      {
+        this.renderTabList()
+      } <
+      ul className = "list-group list-group-flush border-top-0" > {
+        this.renderItems()
+      } <
+      /ul> <
+      /div> <
+      /div> <
+      /div> <
+      footer className = "my-5 mb-2 bg-info text-center" >
+      Copyright 2023© All rights Reserved <
+      /footer> {
+        this.state.modal ? ( <
+          Modal activeItem = {
+            this.state.activeItem
+          }
+          toggle = {
+            this.toggle
+          }
+          onSave = {
+            this.handleSubmit
+          }
           />
-        ) : null}
-      </main>
+        ) : null
+      } <
+      /main>
     )
   }
 }

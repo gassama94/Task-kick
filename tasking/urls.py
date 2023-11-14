@@ -29,5 +29,6 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('profiles/', include(router.urls)),
     path('profiles/<int:pk>', views.ProfileDetail.as_view()),
+    path('accounts/', include('allauth.urls')),
 
 ]
